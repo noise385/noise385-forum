@@ -610,7 +610,7 @@ body {
 <div class="f-login-wrap" id="loginWrap">
   <div class="f-login-box">
     <h2>Member <span>Access</span></h2>
-    <p>Enter your name and email to join the conversation. Your voice matters in this movement.</p>
+    <p>Enter your details and your member access password to join the conversation.</p>
     <div class="f-field">
       <label>Full Name</label>
       <input type="text" id="loginName" placeholder="Your full name" maxlength="60">
@@ -619,8 +619,12 @@ body {
       <label>Email Address</label>
       <input type="email" id="loginEmail" placeholder="your@email.com">
     </div>
-    <button class="f-btn-primary" id="loginBtn" onclick="doLogin()">Enter the Forum</button>
-    <p class="f-login-note">By joining, you agree to our Community Standards and Terms of Use. Your email will not be shown publicly.</p>
+    <div class="f-field">
+      <label>Member Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your access password">
+    </div>
+    <button class="f-btn-primary" id="loginBtn" onclick="doLogin()">Bring the N.O.I.S.E. Here</button>
+    <p class="f-login-note">Password provided via email after registration. By joining, you agree to our Community Standards and Terms of Use.</p>
   </div>
 </div>
 
@@ -784,11 +788,16 @@ function saveDemoMode() {
 }
 
 // ── LOGIN ──
+const FORUM_PASSWORD = 'Union385';
+
 function doLogin() {
   const name = document.getElementById('loginName').value.trim();
   const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
   if (!name || name.length < 2) { showToast('Please enter your full name.', true); return; }
   if (!email || !email.includes('@') || !email.includes('.')) { showToast('Please enter a valid email.', true); return; }
+  if (!password) { showToast('Please enter your member password.', true); return; }
+  if (password !== FORUM_PASSWORD) { showToast('Incorrect password. Check your email.', true); return; }
 
   const btn = document.getElementById('loginBtn');
   btn.textContent = 'Joining…';
@@ -803,7 +812,7 @@ function doLogin() {
     document.getElementById('userNameDisplay').textContent = name;
     document.getElementById('userBadge').classList.add('show');
     document.getElementById('logoutBtn').classList.add('show');
-    btn.textContent = 'Enter the Forum';
+    btn.textContent = 'Bring the N.O.I.S.E. Here';
     btn.disabled = false;
 
     if (firebaseReady) {
@@ -1064,8 +1073,9 @@ function showToast(msg, isError=false) {
 }
 
 // ── KEYBOARD ──
-document.getElementById('loginEmail').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('loginEmail').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginPassword').focus(); });
 document.getElementById('loginName').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginEmail').focus(); });
+document.getElementById('loginPassword').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
 // ── AUTO LOGIN (returning user) ──
 const savedUser = localStorage.getItem('noise385_user');
