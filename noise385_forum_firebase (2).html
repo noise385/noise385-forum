@@ -34,6 +34,129 @@ body {
   min-height: 100vh;
 }
 
+/* ── NAVBAR ── */
+.nav-wrap {
+  background: linear-gradient(160deg, #050814 0%, #0d0a2e 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1000;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+.nav-brand-name span { color: var(--cyan); }
+.nav-brand-sub {
+  font-size: 8px;
+  color: var(--mid);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  padding: 8px 12px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--cyan); }
+.nav-cta {
+  background: var(--cyan) !important;
+  color: var(--dark) !important;
+  font-weight: 800 !important;
+  padding: 8px 16px !important;
+  border-radius: 0;
+  margin-left: 4px;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--cyan);
+  transition: all 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  background: var(--dark2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 16px;
+}
+.nav-mobile.show { display: flex; }
+.nav-mobile a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border2);
+  transition: color 0.2s;
+}
+.nav-mobile a:hover { color: var(--white); }
+.nav-mobile a.active { color: var(--cyan); }
+.nav-cta-mobile {
+  background: var(--cyan);
+  color: var(--dark) !important;
+  font-weight: 800 !important;
+  text-align: center;
+  padding: 10px !important;
+  margin-top: 8px;
+  border-bottom: none !important;
+}
+@media(max-width:700px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+.nav-neon { height:2px; background: linear-gradient(90deg,transparent,var(--cyan),var(--purple),var(--magenta),transparent); }
+
 /* ── HEADER ── */
 .f-header {
   background: linear-gradient(160deg, #050814 0%, #0d0a2e 100%);
@@ -574,8 +697,6 @@ body {
 .f-toast.show { opacity:1; transform:translateY(0); }
 .f-toast.error { background: var(--magenta); color: var(--white); }
 
-
-
 /* ── UPLOAD AREA ── */
 .f-upload-area {
   border: 2px dashed rgba(0,229,255,0.3);
@@ -627,6 +748,36 @@ body {
 </style>
 </head>
 <body>
+
+<!-- ══ NAVBAR ══ -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="https://www.noise385.org/" class="nav-brand">
+      <div>
+        <div class="nav-brand-name">N.O.I.S.E. <span>385</span></div>
+        <div class="nav-brand-sub">Built by Members</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://www.noise385.org/">Home</a></li>
+      <li><a href="https://www.noise385.org/blog">Blog</a></li>
+      <li><a href="https://www.noise385.org/forum" class="active">Forum</a></li>
+      <li><a href="https://www.noise385.org/contact">Contact</a></li>
+      <li><a href="https://www.noise385.org/" class="nav-cta">Join the Movement</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="https://www.noise385.org/">Home</a>
+    <a href="https://www.noise385.org/blog">Blog</a>
+    <a href="https://www.noise385.org/forum" class="active">Forum</a>
+    <a href="https://www.noise385.org/contact">Contact</a>
+    <a href="https://www.noise385.org/" class="nav-cta-mobile">Join the Movement</a>
+  </div>
+</div>
+<div class="nav-neon"></div>
 
 <!-- HEADER -->
 <header class="f-header">
@@ -768,9 +919,16 @@ body {
 </footer>
 
 <script>
+// ── NAVBAR TOGGLE ──
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburger');
+  menu.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+
 // ══════════════════════════════════════════════
 //  🔥 FIREBASE CONFIG — REPLACE WITH YOUR VALUES
-//  Get these from: Firebase Console → Project Settings → Your Apps
 // ══════════════════════════════════════════════
 const FIREBASE_CONFIG = {
   apiKey:            "YOUR_API_KEY",
@@ -876,7 +1034,6 @@ let firebaseReady = false;
 function initFirebase() {
   const isPlaceholder = FIREBASE_CONFIG.apiKey === "YOUR_API_KEY";
   if (isPlaceholder) {
-    // Run in demo mode with localStorage
     firebaseReady = false;
     loadDemoMode();
     return;
@@ -1069,7 +1226,6 @@ async function likePost(postId) {
     saveDemoMode();
     updateCounts();
     renderPosts();
-    // Re-open replies if they were open
     const repliesEl = document.getElementById(`replies-${postId}`);
     if (repliesEl && repliesEl.classList.contains('show')) {
       setTimeout(() => { const el = document.getElementById(`replies-${postId}`); if(el) el.classList.add('show'); }, 10);
