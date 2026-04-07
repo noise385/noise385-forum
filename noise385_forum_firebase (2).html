@@ -17,6 +17,7 @@
   --purple: #7B2FFF;
   --magenta: #FF0080;
   --yellow: #D4FF00;
+  --gold: #F2C14E;
   --dark: #050814;
   --dark2: #0A1128;
   --dark3: #0f1935;
@@ -38,7 +39,8 @@ body {
 .nav-wrap {
   background: linear-gradient(160deg, #050814 0%, #0d0a2e 100%);
   border-bottom: 1px solid var(--border);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
 }
 .nav-inner {
@@ -48,7 +50,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: 60px;
 }
 .nav-brand {
   display: flex;
@@ -97,8 +99,6 @@ body {
   color: var(--dark) !important;
   font-weight: 800 !important;
   padding: 8px 16px !important;
-  border-radius: 0;
-  margin-left: 4px;
 }
 .nav-cta:hover { opacity: 0.85; }
 .nav-hamburger {
@@ -151,73 +151,55 @@ body {
   margin-top: 8px;
   border-bottom: none !important;
 }
-@media(max-width:700px) {
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-}
-.nav-neon { height:2px; background: linear-gradient(90deg,transparent,var(--cyan),var(--purple),var(--magenta),transparent); }
-
-/* ── HEADER ── */
-.f-header {
-  background: linear-gradient(160deg, #050814 0%, #0d0a2e 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 20px 24px;
-  display: flex;
+.nav-user-area {
+  display: none;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  gap: 10px;
+  margin-left: 12px;
 }
-.f-header-brand {
+.nav-user-area.show { display: flex; }
+.nav-user-name {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 22px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--white);
-}
-.f-header-brand span { color: var(--cyan); }
-.f-header-sub {
-  font-size: 11px;
-  color: var(--mid);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-.f-header-right { display:flex; align-items:center; gap:12px; }
-.f-user-badge {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0,229,255,0.08);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--cyan);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-.f-user-badge.show { display: flex; }
-.f-logout-btn {
-  display: none;
+.nav-logout {
   background: none;
   border: 1px solid rgba(255,0,128,0.3);
   color: var(--magenta);
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 6px 14px;
+  padding: 5px 10px;
   cursor: pointer;
   transition: all 0.2s;
 }
-.f-logout-btn.show { display: block; }
-.f-logout-btn:hover { background: rgba(255,0,128,0.1); }
+.nav-logout:hover { background: rgba(255,0,128,0.1); }
+@media(max-width:700px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-user-area { display: none !important; }
+}
+.nav-neon { height:2px; background: linear-gradient(90deg,transparent,var(--cyan),var(--purple),var(--magenta),transparent); }
 
-/* ── NEON LINE ── */
-.f-neon { height:2px; background: linear-gradient(90deg,transparent,var(--cyan),var(--purple),var(--magenta),transparent); }
+/* ── MOBILE USER BAR ── */
+.mobile-user-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: var(--dark2);
+  border-bottom: 1px solid var(--border2);
+}
+@media(max-width:700px) {
+  .mobile-user-bar.show { display: flex; }
+}
+.mobile-user-bar .nav-user-name { font-size: 13px; }
 
 /* ── LOGIN ── */
 .f-login-wrap {
@@ -512,6 +494,7 @@ body {
 }
 @keyframes fadeInPost { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 .f-post:hover { border-color: var(--border); }
+.f-post.blog-post { border-left: 3px solid var(--gold); }
 
 .f-post-header {
   padding: 20px 24px 0;
@@ -532,6 +515,7 @@ body {
   color: var(--dark);
   flex-shrink: 0;
 }
+.f-avatar.blog-avatar { background: linear-gradient(135deg, var(--gold), #e6a817); }
 .f-post-author {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;
@@ -554,6 +538,7 @@ body {
 .f-post-cat.cat-1 { background:rgba(212,255,0,0.1); color:var(--yellow); }
 .f-post-cat.cat-2 { background:rgba(255,0,128,0.1); color:var(--magenta); }
 .f-post-cat.cat-3 { background:rgba(123,47,255,0.15); color:#b388ff; }
+.f-post-cat.cat-4 { background:rgba(242,193,78,0.15); color:var(--gold); }
 
 .f-post-title {
   font-family: 'Barlow Condensed', sans-serif;
@@ -572,6 +557,20 @@ body {
   line-height: 1.7;
   padding: 8px 24px 0 76px;
 }
+.f-post-blog-link {
+  padding: 8px 24px 0 76px;
+}
+.f-post-blog-link a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.f-post-blog-link a:hover { color: var(--white); }
 .f-post-footer {
   padding: 12px 24px 16px 76px;
   display: flex;
@@ -755,7 +754,7 @@ body {
     <a href="https://www.noise385.org/" class="nav-brand">
       <div>
         <div class="nav-brand-name">N.O.I.S.E. <span>385</span></div>
-        <div class="nav-brand-sub">Built by Members</div>
+        <div class="nav-brand-sub">Member Forum · Built by Members</div>
       </div>
     </a>
     <ul class="nav-links">
@@ -765,6 +764,10 @@ body {
       <li><a href="https://www.noise385.org/contact">Contact</a></li>
       <li><a href="https://www.noise385.org/" class="nav-cta">Join the Movement</a></li>
     </ul>
+    <div class="nav-user-area" id="navUserArea">
+      <span class="nav-user-name" id="navUserName">👤</span>
+      <button class="nav-logout" onclick="logout()">Sign Out</button>
+    </div>
     <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
@@ -779,20 +782,11 @@ body {
 </div>
 <div class="nav-neon"></div>
 
-<!-- HEADER -->
-<header class="f-header">
-  <div>
-    <div class="f-header-brand">N.O.I.S.E.<span>385</span></div>
-    <div class="f-header-sub">Member Forum · Built by Members</div>
-  </div>
-  <div class="f-header-right">
-    <div class="f-user-badge" id="userBadge">👤 <span id="userNameDisplay"></span></div>
-    <button class="f-logout-btn" id="logoutBtn" onclick="logout()">Sign Out</button>
-  </div>
-</header>
-<div class="f-neon"></div>
-
-
+<!-- MOBILE USER BAR (shown on mobile when logged in) -->
+<div class="mobile-user-bar" id="mobileUserBar">
+  <span class="nav-user-name" id="mobileUserName">👤</span>
+  <button class="nav-logout" onclick="logout()">Sign Out</button>
+</div>
 
 <!-- LOGIN -->
 <div class="f-login-wrap" id="loginWrap">
@@ -850,6 +844,10 @@ body {
           <span class="f-cat-icon">💬</span> General
           <span class="f-cat-count" id="cnt-3">–</span>
         </button>
+        <button class="f-cat-btn" onclick="filterCat(4, this)">
+          <span class="f-cat-icon">📝</span> Blog Discussion
+          <span class="f-cat-count" id="cnt-4">–</span>
+        </button>
       </div>
       <div class="f-sidebar-new">
         <p>Have something to share with fellow members?</p>
@@ -877,6 +875,7 @@ body {
           <option value="1">⚖️ Worker Rights</option>
           <option value="2">📄 Contracts & Negotiation</option>
           <option value="3">💬 General Discussion</option>
+          <option value="4">📝 Blog Discussion</option>
         </select>
         <label class="f-select-label" style="margin-top:8px;">Photo or Video (optional)</label>
         <div class="f-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
@@ -940,14 +939,15 @@ const FIREBASE_CONFIG = {
 };
 // ══════════════════════════════════════════════
 
-const CATS = ['Movement News','Worker Rights','Contracts & Negotiation','General Discussion'];
-const CAT_CLASSES = ['cat-0','cat-1','cat-2','cat-3'];
+const CATS = ['Movement News','Worker Rights','Contracts & Negotiation','General Discussion','Blog Discussion'];
+const CAT_CLASSES = ['cat-0','cat-1','cat-2','cat-3','cat-4'];
 const CAT_TITLES = [
   'All <span>Posts</span>',
   'Movement <span>News</span>',
   'Worker <span>Rights</span>',
   'Contracts <span>&amp; Negotiation</span>',
-  'General <span>Discussion</span>'
+  'General <span>Discussion</span>',
+  'Blog <span>Discussion</span>'
 ];
 
 // ══════════════════════════════════════════════
@@ -955,6 +955,31 @@ const CAT_TITLES = [
 // ══════════════════════════════════════════════
 const CLOUDINARY_CLOUD = 'dur66pxpw';
 const CLOUDINARY_PRESET = 'noise385_forum';
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  📝 25-WEEK BLOG POSTS (pre-loaded)
+// ══════════════════════════════════════════════
+const BLOG_POSTS = [
+  { week: '1-2', title: 'Where Were They Before?', body: 'Every election cycle, union leaders suddenly show up walking the floor, shaking hands. But the real question is: where were they before they needed your vote? Read the full blog and share your thoughts below.' },
+  { week: '3', title: 'Are You Getting What You Pay For?', body: 'Union dues come out of every paycheck — but what are members actually getting in return? If the representation doesn\'t match the investment, it\'s time to ask why. Read the blog and tell us what you think.' },
+  { week: '4', title: 'Who Really Has Your Back?', body: 'When you need help at work, who actually shows up? Not just in theory — in practice. Real representation means being there when it counts. Share your experience.' },
+  { week: '5', title: 'Favoritism in the Union', body: 'When support depends on who you know instead of what\'s right, the system is broken. Have you experienced favoritism? Let\'s talk about it.' },
+  { week: '6-7', title: 'Stewards Pulled Off the Floor', body: 'Stewards are supposed to be your first line of defense — but what happens when they\'re pulled away from where they\'re needed most? Share your thoughts.' },
+  { week: '8-9', title: 'Call Your Business Agent — If They Answer', body: 'Trying to reach your business agent shouldn\'t feel impossible. When calls go unanswered and issues pile up, who\'s really being represented? Tell us your experience.' },
+  { week: '10', title: 'Outdated Communication', body: 'Bulletin boards and word-of-mouth aren\'t enough anymore. Members deserve real-time, transparent communication. What would better communication look like to you?' },
+  { week: '11-12', title: 'Empty Meetings, Empty Promises', body: 'Low attendance at meetings isn\'t just apathy — it\'s a sign that members feel unheard. What would make meetings worth attending? Share your ideas.' },
+  { week: '13', title: 'Delayed Grievances', body: 'When grievances sit for weeks or months without action, members lose trust. A delayed grievance is a denied grievance. Has this happened to you?' },
+  { week: '14-15', title: 'Who\'s Being Pressured and Who\'s Being Protected?', body: 'In any negotiation, the question is: whose interests are really being served? If members feel pressured while others are protected, something is wrong. Speak up.' },
+  { week: '16-17', title: 'It Starts With New Leadership', body: 'Change doesn\'t happen by accident. It starts with leaders who are present, accountable, and committed to every member. What does new leadership mean to you?' },
+  { week: '18-19', title: 'Leadership Should Be Present', body: 'Leaders who are visible on the floor, accessible, and engaged — that\'s the standard. Not just during election season, but every single day. Do you agree?' },
+  { week: '20', title: 'Communication Should Reach Everyone', body: 'Every member deserves to know what\'s happening — not just those in the loop. Modern communication tools can make this a reality. What are your thoughts?' },
+  { week: '21', title: 'Representation Should Be Easy', body: 'Getting help from your union shouldn\'t be a struggle. It should be straightforward, consistent, and available to all. Share your experience.' },
+  { week: '22', title: 'Accountability Starts at the Top', body: 'If leadership isn\'t accountable, nothing else works. Accountability means transparency, follow-through, and owning the results. Do you see this happening?' },
+  { week: '23', title: 'Equal Representation for All Members', body: 'Representation isn\'t supposed to be selective. It\'s supposed to be equal, consistent, and fair across the board. No shortcuts. No favorites. No exceptions.' },
+  { week: '24', title: 'Strong Leadership Means Stronger Enforcement', body: 'A strong contract means nothing without enforcement. When violations happen, words don\'t matter — action does. What has your experience been?' },
+  { week: '25', title: 'A New Direction Starts With Us', body: 'Change happens when workers decide they\'re done settling for less. The future isn\'t decided behind closed doors — it\'s decided by the members. Are you ready?' }
+];
 // ══════════════════════════════════════════════
 
 let selectedMediaUrl = null;
@@ -1049,20 +1074,73 @@ function initFirebase() {
   }
 }
 
+// ── SEED BLOG POSTS TO FIREBASE ──
+async function seedBlogPosts() {
+  if (!firebaseReady) return;
+  const snapshot = await db.collection('posts').where('isBlog', '==', true).get();
+  if (!snapshot.empty) return; // Already seeded
+
+  const batch = db.batch();
+  BLOG_POSTS.forEach((blog, i) => {
+    const ref = db.collection('posts').doc('blog_week_' + blog.week.replace('-','_'));
+    batch.set(ref, {
+      cat: 4,
+      author: 'N.O.I.S.E. 385',
+      email: 'admin@noise385.org',
+      title: 'Week ' + blog.week + ': ' + blog.title,
+      body: blog.body,
+      time: Date.now() - (86400000 * (BLOG_POSTS.length - i) * 7),
+      likes: [],
+      replies: [],
+      isBlog: true,
+      blogWeek: blog.week,
+      mediaUrl: null,
+      mediaType: null
+    });
+  });
+  await batch.commit();
+}
+
 // ── DEMO MODE (localStorage fallback) ──
 function loadDemoMode() {
   const stored = localStorage.getItem('noise385_posts');
   if (stored) {
     allPosts = JSON.parse(stored);
+    // Check if blog posts exist
+    const hasBlog = allPosts.some(p => p.isBlog);
+    if (!hasBlog) {
+      addDemoBlogPosts();
+    }
   } else {
     allPosts = [
       { id:'demo1', cat:0, author:'Marcus T.', title:'Welcome to the N.O.I.S.E. 385 Member Forum', body:'This is YOUR space to speak openly, share updates, ask questions, and hold leadership accountable. Built by members, for members. Every voice here matters.', time: Date.now() - 86400000*2, likes:[], replies:[{author:'Diana R.',text:'Finally a place where we can actually talk to each other.',time:Date.now()-86400000},{author:'Joe M.',text:"Solidarity! Let's use this to stay organized.",time:Date.now()-3600000*5}] },
       { id:'demo2', cat:2, author:'Sandra K.', title:'Contract enforcement — share your experiences', body:"I've been hearing from multiple members that management is ignoring Article 7 grievances. Has anyone else dealt with this? We need to document everything and push back together.", time:Date.now()-3600000*18, likes:[], replies:[{author:'Ray V.',text:'File a grievance in writing every single time. Paper trail is everything.',time:Date.now()-3600000*10}] },
-      { id:'demo3', cat:1, author:'Tony B.', title:'Know Your Rights: Weingarten Rights Reminder', body:'Reminder: under the NLRA, you have the right to union representation during any investigatory interview that could lead to discipline. Always invoke this right. Say: "I request union representation before answering any questions."', time:Date.now()-3600000*6, likes:[], replies:[] },
+      { id:'demo3', cat:1, author:'Tony B.', title:'Know Your Rights: Weingarten Rights Reminder', body:'Reminder: under the NLRA, you have the right to union representation during any investigatory interview that could lead to discipline. Always invoke this right.', time:Date.now()-3600000*6, likes:[], replies:[] },
       { id:'demo4', cat:3, author:'Lisa H.', title:'Meeting recap — what did we miss?', body:"Couldn't make the last meeting due to my shift. Can someone fill me in on the overtime dispute and the upcoming vote?", time:Date.now()-3600000*2, likes:[], replies:[] }
     ];
-    saveDemoMode();
+    addDemoBlogPosts();
   }
+}
+
+function addDemoBlogPosts() {
+  BLOG_POSTS.forEach((blog, i) => {
+    allPosts.push({
+      id: 'blog_week_' + blog.week.replace('-','_'),
+      cat: 4,
+      author: 'N.O.I.S.E. 385',
+      email: 'admin@noise385.org',
+      title: 'Week ' + blog.week + ': ' + blog.title,
+      body: blog.body,
+      time: Date.now() - (86400000 * (BLOG_POSTS.length - i) * 7),
+      likes: [],
+      replies: [],
+      isBlog: true,
+      blogWeek: blog.week,
+      mediaUrl: null,
+      mediaType: null
+    });
+  });
+  saveDemoMode();
 }
 
 function saveDemoMode() {
@@ -1091,14 +1169,15 @@ function doLogin() {
   setTimeout(() => {
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('forumApp').classList.add('show');
-    document.getElementById('userNameDisplay').textContent = name;
-    document.getElementById('userBadge').classList.add('show');
-    document.getElementById('logoutBtn').classList.add('show');
+    document.getElementById('navUserName').textContent = '👤 ' + name;
+    document.getElementById('navUserArea').classList.add('show');
+    document.getElementById('mobileUserName').textContent = '👤 ' + name;
+    document.getElementById('mobileUserBar').classList.add('show');
     btn.textContent = 'Bring the N.O.I.S.E. Here';
     btn.disabled = false;
 
     if (firebaseReady) {
-      listenToPosts();
+      seedBlogPosts().then(() => listenToPosts());
     } else {
       renderPosts();
       updateCounts();
@@ -1113,8 +1192,8 @@ function logout() {
   localStorage.removeItem('noise385_user');
   document.getElementById('loginWrap').style.display = 'flex';
   document.getElementById('forumApp').classList.remove('show');
-  document.getElementById('userBadge').classList.remove('show');
-  document.getElementById('logoutBtn').classList.remove('show');
+  document.getElementById('navUserArea').classList.remove('show');
+  document.getElementById('mobileUserBar').classList.remove('show');
   document.getElementById('loginName').value = '';
   document.getElementById('loginEmail').value = '';
   document.getElementById('newPostForm').classList.remove('show');
@@ -1283,18 +1362,20 @@ function renderPosts() {
     const likes = p.likes || [];
     const userLiked = likes.includes(currentUser.email);
     const replies = p.replies || [];
+    const isBlog = p.isBlog || false;
     return `
-    <div class="f-post" id="post-${p.id}">
+    <div class="f-post ${isBlog ? 'blog-post' : ''}" id="post-${p.id}">
       <div class="f-post-header">
-        <div class="f-avatar">${initials(p.author)}</div>
+        <div class="f-avatar ${isBlog ? 'blog-avatar' : ''}">${isBlog ? '📝' : initials(p.author)}</div>
         <div>
           <div class="f-post-author">${esc(p.author)}</div>
-          <div class="f-post-time">${timeAgo(p.time)}</div>
+          <div class="f-post-time">${isBlog ? 'Blog Series' : timeAgo(p.time)}</div>
         </div>
         <span class="f-post-cat ${CAT_CLASSES[p.cat]}">${CATS[p.cat]}</span>
       </div>
       <div class="f-post-title" onclick="toggleReplies('${p.id}')">${esc(p.title)}</div>
       <div class="f-post-body">${esc(p.body)}</div>
+      ${isBlog ? `<div class="f-post-blog-link"><a href="https://www.noise385.org/blog" target="_blank">📖 Read full blog post →</a></div>` : ''}
       ${p.mediaUrl ? `
       <div class="f-post-media">
         ${p.mediaType === 'video'
@@ -1352,7 +1433,7 @@ function toggleReplyForm(id) {
 // ── COUNTS ──
 function updateCounts() {
   document.getElementById('cnt-all').textContent = allPosts.length;
-  [0,1,2,3].forEach(c => {
+  [0,1,2,3,4].forEach(c => {
     document.getElementById('cnt-' + c).textContent = allPosts.filter(p => p.cat === c).length;
   });
 }
