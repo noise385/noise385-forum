@@ -27,12 +27,13 @@
   --border2: rgba(0,229,255,0.08);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
+html { height: 100%; background: #050814; }
 body {
   font-family: 'Barlow', sans-serif;
   font-weight: 300;
   background: var(--dark);
   color: var(--white);
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 /* ── NAVBAR ── */
@@ -91,9 +92,9 @@ body {
 .poll-page {
   max-width: 700px;
   margin: 0 auto;
-  padding: 50px 24px 80px;
+  padding: 30px 24px 40px;
 }
-.poll-header { text-align: center; margin-bottom: 50px; }
+.poll-header { text-align: center; margin-bottom: 30px; }
 .poll-badge {
   display: inline-block;
   font-family: 'Barlow Condensed', sans-serif;
@@ -275,7 +276,7 @@ body {
 .f-footer {
   background: #020508; border-top: 1px solid var(--border);
   padding: 24px; text-align: center; font-size: 11px;
-  color: rgba(136,146,176,0.4); letter-spacing: 0.05em; margin-top: 48px;
+  color: rgba(136,146,176,0.4); letter-spacing: 0.05em;
 }
 </style>
 </head>
@@ -388,12 +389,12 @@ function toggleMenu() {
 //  🔥 FIREBASE CONFIG
 // ══════════════════════════════════════════════
 const FIREBASE_CONFIG = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey:            "AIzaSyDU7_j-UxS85B72L4clA95QgRSF07M65ag",
+  authDomain:        "noise385-forum.firebaseapp.com",
+  projectId:         "noise385-forum",
+  storageBucket:     "noise385-forum.firebasestorage.app",
+  messagingSenderId: "518824091098",
+  appId:             "1:518824091098:web:875804ed445f04d8ff74e3"
 };
 // ══════════════════════════════════════════════
 
