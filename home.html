@@ -306,7 +306,26 @@ body {
   gap: 20px;
   text-align: center;
 }
-@media(max-width:700px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:700px) {
+  .stats-bar { overflow: hidden; padding: 0; }
+  .stats-inner { display: flex !important; transition: transform 0.4s ease; width: 100%; grid-template-columns: none !important; gap: 0; }
+  .stats-inner > div { min-width: 100%; padding: 28px 24px; flex-shrink: 0; text-align: center; }
+  .stats-dots { display: flex !important; }
+}
+@media(min-width:701px) { .stats-dots { display: none !important; } }
+.stats-dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0 14px;
+  background: var(--dark2);
+  border-bottom: 1px solid var(--border);
+}
+.stats-dots span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(0,229,255,0.25); cursor: pointer; transition: background 0.2s;
+}
+.stats-dots span.active { background: var(--cyan); }
 .stat-num {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900; font-size: 36px;
@@ -488,14 +507,14 @@ body {
 
 <!-- ══ STATS ══ -->
 <div class="stats-bar">
-  <div class="stats-inner">
+  <div class="stats-inner" id="statsTrack">
     <div>
       <div class="stat-num">385</div>
       <div class="stat-label">Local Union</div>
     </div>
     <div>
-      <div class="stat-num">25</div>
-      <div class="stat-label">Week Blog Series</div>
+      <div class="stat-num">Blog</div>
+      <div class="stat-label">25 Weeks of Content</div>
     </div>
     <div>
       <div class="stat-num">100%</div>
@@ -507,6 +526,24 @@ body {
     </div>
   </div>
 </div>
+<div class="stats-dots" id="statsDots">
+  <span class="active" onclick="goStat(0)"></span>
+  <span onclick="goStat(1)"></span>
+  <span onclick="goStat(2)"></span>
+  <span onclick="goStat(3)"></span>
+</div>
+<script>
+var statIdx = 0;
+setInterval(function(){ goStat((statIdx+1)%4); }, 2500);
+function goStat(i) {
+  statIdx = i;
+  var track = document.getElementById("statsTrack");
+  if (track && getComputedStyle(track).display === "flex") {
+    track.style.transform = "translateX(-" + (i * 100) + "%)";
+  }
+  document.querySelectorAll("#statsDots span").forEach(function(d,j){ d.classList.toggle("active", j===i); });
+}
+</script>
 
 <!-- ══ MISSION ══ -->
 <section class="section">
