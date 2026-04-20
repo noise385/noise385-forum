@@ -783,8 +783,8 @@ body {
       </div>
     </a>
     <ul class="nav-links">
-      <li><a href="https://www.noise385.org/join" class="nav-cta">Join the Movement</a></li>
-      <li><a href="https://www.noise385.org/">Home</a></li>
+      <li><a href="https://www.noise385.org/join" target="_parent" class="nav-cta">Join the Movement</a></li>
+      <li><a href="https://www.noise385.org/" target="_parent">Home</a></li>
       <li class="nav-dropdown">
         <a href="#">▾</a>
         <div class="nav-dropdown-menu">
@@ -793,9 +793,9 @@ body {
           <a href="https://noise385.github.io/noise385-forum/By_Laws_Local_385.pdf" target="_blank">📋 Local 385 Bylaws</a>
         </div>
       </li>
-      <li><a href="https://www.noise385.org/blog">Blog</a></li>
-      <li><a href="https://www.noise385.org/forum" class="active">Forum</a></li>
-      <li><a href="https://www.noise385.org/contact">Contact</a></li>
+      <li><a href="https://www.noise385.org/blog" target="_parent">Blog</a></li>
+      <li><a href="https://www.noise385.org/forum" target="_parent" class="active">Forum</a></li>
+      <li><a href="https://www.noise385.org/contact" target="_parent">Contact</a></li>
     </ul>
     <div class="nav-user-area" id="navUserArea">
       <span class="nav-user-name" id="navUserName">👤</span>
@@ -806,15 +806,15 @@ body {
     </button>
   </div>
   <div class="nav-mobile" id="mobileMenu">
-    <a href="https://www.noise385.org/join" class="nav-cta-mobile">Join the Movement</a>
-    <a href="https://www.noise385.org/">Home</a>
+    <a href="https://www.noise385.org/join" target="_parent" class="nav-cta-mobile">Join the Movement</a>
+    <a href="https://www.noise385.org/" target="_parent">Home</a>
     <a href="#" style="padding-left:8px;font-size:11px;color:rgba(0,229,255,0.6);">▾ More</a>
     <a href="https://noise385.github.io/noise385-forum/oath.html" class="sub">📜 Member Oath</a>
     <a href="https://noise385.github.io/noise385-forum/IBT_Constitution.pdf" class="sub" target="_blank">📄 IBT Constitution</a>
     <a href="https://noise385.github.io/noise385-forum/By_Laws_Local_385.pdf" class="sub" target="_blank">📋 Local 385 Bylaws</a>
-    <a href="https://www.noise385.org/blog">Blog</a>
-    <a href="https://www.noise385.org/forum" class="active">Forum</a>
-    <a href="https://www.noise385.org/contact">Contact</a>
+    <a href="https://www.noise385.org/blog" target="_parent">Blog</a>
+    <a href="https://www.noise385.org/forum" target="_parent" class="active">Forum</a>
+    <a href="https://www.noise385.org/contact" target="_parent">Contact</a>
   </div>
 </div>
 <div class="nav-neon"></div>
@@ -1412,7 +1412,7 @@ function renderPosts() {
       </div>
       <div class="f-post-title" onclick="toggleReplies('${p.id}')">${esc(p.title)}</div>
       <div class="f-post-body">${esc(p.body)}</div>
-      ${isBlog ? `<div class="f-post-blog-link"><a href="https://www.noise385.org/blog" target="_blank">📖 Read full blog post →</a></div>` : ''}
+      ${isBlog ? `<div class="f-post-blog-link"><a href="https://www.noise385.org/blog" target="_parent" target="_blank">📖 Read full blog post →</a></div>` : ''}
       ${p.mediaUrl ? `
       <div class="f-post-media">
         ${p.mediaType === 'video'
