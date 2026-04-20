@@ -27,6 +27,7 @@
   --border2: rgba(0,229,255,0.08);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
+html, body { width: 100%; min-width: 100%; }
 body {
   font-family: 'Barlow', sans-serif;
   font-weight: 300;
@@ -52,15 +53,17 @@ body {
 
 /* ── LOGIN ── */
 .f-login-wrap {
-  min-height: calc(100vh - 72px);
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
+  width: 100%;
 }
 .f-login-box {
   width: 100%;
   max-width: 420px;
+  margin: 0 auto;
   border: 1px solid var(--border);
   background: var(--dark2);
   padding: 48px 40px;
@@ -596,11 +599,6 @@ body {
 </style>
 </head>
 <body>
-
-<!-- ══ NAVBAR ══ -->
-
-
-<!-- MOBILE USER BAR (shown on mobile when logged in) -->
 <!-- LOGIN -->
 <div class="f-login-wrap" id="loginWrap">
   <div class="f-login-box">
