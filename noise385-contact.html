@@ -132,102 +132,12 @@
   .bottom-banner p span { color: var(--cyan); }
 
 
-  /* NAVBAR */
-  .navbar {
-    background: #0a0a1f;
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(90deg, var(--cyan), var(--purple)) 1;
-    padding: 0 32px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
-  .nav-logo-text { display: flex; flex-direction: column; }
-  .nav-name { font-family: "Barlow Condensed", sans-serif; font-size: 15px; font-weight: 800; color: var(--white); letter-spacing: 0.05em; line-height: 1.1; }
-  .nav-385 { color: var(--cyan); }
-  .nav-sub { font-family: "Barlow Condensed", sans-serif; font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase; }
-  .nav-right { display: flex; align-items: center; gap: 24px; }
-  
-  
-  
-  .nav-link {
-    font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.75);
-    text-decoration: none; transition: color 0.2s; position: relative;
-  }
-  .nav-link:hover, .nav-link.active { color: var(--white); }
-  .nav-link.active::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--cyan); }
-  .nav-arrow { font-size: 9px; }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  .mobile-cta { color: var(--cyan) !important; }
-  @media (max-width: 768px) {
-    
-    
-    
-  }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes floatLogo { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
   </style>
 </head>
 <body>
-<!-- NAVBAR -->
-<nav class="navbar">
-  <a href="https://noise385.org" class="nav-logo">
-    <img src="https://res.cloudinary.com/dur66pxpw/image/upload/v1776208136/FullLogo_Transparent_ydhats.png" alt="N.O.I.S.E. 385"/>
-    <div class="nav-logo-text">
-      <span class="nav-name">N.O.I.S.E. <span class="nav-385">385</span></span>
-      <span class="nav-sub">BUILT BY MEMBERS</span>
-    </div>
-  </a>
-  <div class="nav-right">
-    <a href="https://noise385.org/join" target="_parent" class="nav-cta">JOIN THE MOVEMENT</a>
-    <div class="nav-links">
-      <a href="https://noise385.org" class="nav-link" target="_parent">HOME</a>
-      <a href="https://noise385.org/blog" target="_parent" class="nav-link">BLOG</a>
-      <a href="https://noise385.org/forum" target="_parent" class="nav-link">FORUM</a>
-      <a href="https://noise385.org/contact" target="_parent" class="nav-link active">CONTACT</a>
-      <div class="nav-dropdown">
-        <a href="#" class="nav-link">LEGAL</a>
-        <div class="nav-dropdown-menu">
-          <a href="https://noise385.github.io/noise385-forum/oath.html">📜 Member Oath</a>
-          <a href="https://noise385.github.io/noise385-forum/IBT_Constitution.pdf" target="_blank">📄 IBT Constitution</a>
-          <a href="https://noise385.github.io/noise385-forum/By_Laws_Local_385.pdf" target="_blank">📋 Local 385 Bylaws</a>
-        </div>
-      </div>
-    </div>
-    <button class="nav-hamburger" onclick="toggleMenu()">&#9776;</button>
-  </div>
-</nav>
-<div class="nav-mobile-menu" id="mobileMenu">
-  <a href="https://noise385.org">Home</a>
-  <a href="https://noise385.org/blog" target="_parent">Blog</a>
-  <a href="https://noise385.org/forum" target="_parent">Forum</a>
-  <a href="https://noise385.org/contact" target="_parent">Contact</a>
-  <a href="#">Legal ▾</a>
-  <a href="https://noise385.github.io/noise385-forum/oath.html" style="padding-left:20px;font-size:12px;">📜 Member Oath</a>
-  <a href="https://noise385.github.io/noise385-forum/IBT_Constitution.pdf" target="_blank" style="padding-left:20px;font-size:12px;">📄 IBT Constitution</a>
-  <a href="https://noise385.github.io/noise385-forum/By_Laws_Local_385.pdf" target="_blank" style="padding-left:20px;font-size:12px;">📋 Local 385 Bylaws</a>
-  <a href="https://noise385.org/join" target="_parent" class="mobile-cta">Join the Movement</a>
-</div>
-
-
 <section class="hero">
 <div class="hero-badge">N.O.I.S.E. 385 — Local 385</div>
   <h1 class="hero-title">GET IN <span class="cyan">TOUCH</span>.</h1>
