@@ -100,7 +100,7 @@ body { top: 0 !important; }
   animation: fadeUp 0.6s ease both 0.2s;
 }
 .hero-title span { color: var(--gold); display: block; }
-.hero-sub { font-size: 16px; color: var(--mid); max-width: 520px; margin: 0 auto 36px; line-height: 1.7; animation: fadeUp 0.6s ease both 0.3s; }
+.hero-sub { font-size: clamp(20px,4vw,28px); color: var(--white); max-width: 520px; margin: 0 auto 36px; line-height: 1.5; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 0.05em; animation: fadeUp 0.6s ease both 0.3s; }
 
 /* PRIZE TICKER */
 .prize-ticker-wrap {
@@ -304,26 +304,18 @@ body { top: 0 !important; }
 <!-- TICKER -->
 <div class="prize-ticker-wrap">
   <div class="prize-ticker-track" id="ticker">
-    <div class="prize-ticker-item"><span>⛽</span>GAS CARD GIVEAWAY</div>
-    <div class="prize-ticker-item"><span>🏆</span>10 WINNERS</div>
-    <div class="prize-ticker-item"><span>💰</span>$50 EACH</div>
-    <div class="prize-ticker-item"><span>📅</span>ENDS MAY 31ST</div>
-    <div class="prize-ticker-item"><span>✅</span>MEMBERS ONLY</div>
-    <div class="prize-ticker-item"><span>⛽</span>GAS CARD GIVEAWAY</div>
-    <div class="prize-ticker-item"><span>🏆</span>10 WINNERS</div>
-    <div class="prize-ticker-item"><span>💰</span>$50 EACH</div>
-    <div class="prize-ticker-item"><span>📅</span>ENDS MAY 31ST</div>
-    <div class="prize-ticker-item"><span>✅</span>MEMBERS ONLY</div>
+    <div class="prize-ticker-item">⛽ &nbsp; GAS CARD GIVEAWAY &nbsp; · &nbsp; 10 WINNERS &nbsp; · &nbsp; $50 EACH &nbsp; · &nbsp; DEADLINE: MAY 31ST &nbsp; ·</div>
+    <div class="prize-ticker-item">⛽ &nbsp; GAS CARD GIVEAWAY &nbsp; · &nbsp; 10 WINNERS &nbsp; · &nbsp; $50 EACH &nbsp; · &nbsp; DEADLINE: MAY 31ST &nbsp; ·</div>
+    <div class="prize-ticker-item">⛽ &nbsp; GAS CARD GIVEAWAY &nbsp; · &nbsp; 10 WINNERS &nbsp; · &nbsp; $50 EACH &nbsp; · &nbsp; DEADLINE: MAY 31ST &nbsp; ·</div>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-badge">⛽ Member Exclusive Giveaway</div>
   <h1 class="hero-title">Gas Card<span>Giveaway</span></h1>
-  <p class="hero-sub">10 winners. $50 gas card each. Exclusively for registered N.O.I.S.E. 385 members. Join the movement and enter to win.</p>
-  <a href="https://www.noise385.org/join" target="_parent" class="cta-btn" style="font-size:16px;padding:16px 40px;margin-bottom:0;">⛽ Register to Enter</a>
+  <p class="hero-sub">10 Winners. $50 Each.<br>Register before May 31st to enter.</p>
+  <a href="https://www.noise385.org/join" target="_parent" class="cta-btn" style="font-size:20px;padding:22px 64px;margin-bottom:0;letter-spacing:0.15em;">REGISTER TO ENTER →</a>
 </section>
 
 <!-- COUNTDOWN -->
