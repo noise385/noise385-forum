@@ -169,6 +169,31 @@
 .nav-neon { height: 2px; background: linear-gradient(90deg,transparent,#00E5FF,#7B2FFF,#FF0080,transparent); }
 @media(max-width:700px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
 
+
+/* GOOGLE TRANSLATE */
+.translate-bar {
+  background: #0d0a2e;
+  border-bottom: 1px solid rgba(0,229,255,0.1);
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.translate-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+#google_translate_element { display: inline-block; }
+.goog-te-gadget { font-family: 'Barlow Condensed', sans-serif !important; font-size: 12px !important; color: rgba(255,255,255,0.5) !important; }
+.goog-te-gadget .goog-te-combo { background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); color: #00E5FF; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; padding: 4px 8px; cursor: pointer; outline: none; }
+.goog-te-banner-frame { display: none !important; }
+body { top: 0 !important; }
+
 </style>
 </head>
 <body>
@@ -186,7 +211,6 @@
       <li><a href="https://www.noise385.org/join" target="_parent" class="nav-cta">Join the Movement</a></li>
       <li><a href="https://www.noise385.org/" target="_parent" >Home</a></li>
       <li><a href="https://www.noise385.org/blog" target="_parent" >Blog</a></li>
-      <li><a href="https://www.noise385.org/forum" target="_parent" >Forum</a></li>
       <li><a href="https://www.noise385.org/contact" target="_parent" class="active">Contact</a></li>
       <li class="nav-dropdown">
         <a href="#">Legal</a>
@@ -207,7 +231,6 @@
     <a href="https://www.noise385.org/join" target="_parent" class="nav-cta-mobile">Join the Movement</a>
     <a href="https://www.noise385.org/" target="_parent">Home</a>
     <a href="https://www.noise385.org/blog" target="_parent">Blog</a>
-    <a href="https://www.noise385.org/forum" target="_parent">Forum</a>
     <a href="https://www.noise385.org/contact" target="_parent">Contact</a>
     <a href="#">Legal ▾</a>
     <a href="https://noise385.github.io/noise385-forum/oath.html" class="sub" target="_blank">📜 Member Oath</a>
@@ -218,6 +241,24 @@
   </div>
 </div>
 <div class="nav-neon"></div>
+
+<!-- GOOGLE TRANSLATE BAR -->
+<div class="translate-bar">
+  <span class="translate-label">🌐 Translate:</span>
+  <div id="google_translate_element"></div>
+</div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,es,ht',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <script>
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');
