@@ -614,6 +614,7 @@ async function submitLead() {
     try {
       await db.collection('poll_leads').add({
         name, email, phone,
+        answers: answers,
         actionAnswer: answers[9] || '',
         timestamp: Date.now(),
         submittedAt: new Date().toISOString()
@@ -621,16 +622,17 @@ async function submitLead() {
     } catch(e) { console.error(e); }
   }
 
-  // Save to Google Sheets
+  // Save to Google Sheets - Send ALL responses together
   try {
     fetch(SHEETS_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        question: 'LEAD CAPTURE',
-        answer: answers[9] || '',
-        name, email, phone
+        name: name,
+        email: email,
+        phone: phone,
+        answers: answers
       })
     });
   } catch(e) { console.error(e); }
