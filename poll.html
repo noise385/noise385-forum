@@ -609,20 +609,32 @@ async function submitLead() {
   btn.disabled = true;
   btn.textContent = 'Submitting…';
 
-  // Save to Firebase
+  console.log('GUARDANDO RESPUESTAS:', answers);
+
+  // Save to Firebase with ALL answers
   if (firebaseReady) {
     try {
-      await db.collection('poll_leads').add({
-        name, email, phone,
+      const dataToSave = {
+        name: name,
+        email: email,
+        phone: phone,
         answers: answers,
         actionAnswer: answers[9] || '',
         timestamp: Date.now(),
         submittedAt: new Date().toISOString()
-      });
-    } catch(e) { console.error(e); }
+      };
+      
+      console.log('DATOS A GUARDAR:', JSON.stringify(dataToSave));
+      
+      await db.collection('poll_leads').add(dataToSave);
+      
+      console.log('✅ GUARDADO EN FIREBASE');
+    } catch(e) { 
+      console.error('❌ ERROR FIREBASE:', e); 
+    }
   }
 
-  // Save to Google Sheets - Send ALL responses together
+  // Save to Google Sheets
   try {
     fetch(SHEETS_URL, {
       method: 'POST',
