@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown | N.O.I.S.E. 385</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== N.O.I.S.E. 385 COUNTDOWN (paleta del banner) ===== */
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:transparent;font-family:'Barlow',sans-serif;}
+
+  .nz-countdown{
+    background:linear-gradient(135deg,#0d0a2e 0%,#1a0a3e 50%,#050814 100%);
+    border:1px solid rgba(242,193,78,0.4);
+    border-top:4px solid #F2C14E;
+    padding:52px 20px 58px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    max-width:100%;
+  }
+  .nz-countdown::before{
+    content:'⏱';
+    position:absolute;
+    font-size:200px;
+    opacity:0.04;
+    right:40px;
+    top:50%;
+    transform:translateY(-50%);
+    pointer-events:none;
+  }
+
+  .nz-eyebrow{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:#F2C14E;
+    margin-bottom:8px;
+  }
+  .nz-title{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900;
+    text-transform:uppercase;
+    font-size:clamp(26px,5vw,46px);
+    line-height:1.1;
+    color:#F0F4FF;
+    margin-bottom:6px;
+  }
+  .nz-title span{color:#F2C14E;}
+  .nz-sub{
+    font-size:14px;
+    color:#8892B0;
+    max-width:600px;
+    margin:0 auto 34px;
+  }
+
+  .nz-grid{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:34px;
+    position:relative;
+    z-index:1;
+  }
+  .nz-box{
+    background:rgba(242,193,78,0.04);
+    border:1px solid rgba(242,193,78,0.4);
+    border-radius:12px;
+    width:118px;
+    padding:22px 10px 16px;
+    position:relative;
+  }
+  .nz-box::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:44px;height:3px;border-radius:0 0 4px 4px;background:#F2C14E;
+  }
+  .nz-num{
+    display:block;
+    font-family:'Barlow Condensed',sans-serif;
+    color:#F2C14E;
+    font-weight:900;
+    font-size:clamp(40px,7vw,60px);
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .nz-label{
+    display:block;
+    margin-top:8px;
+    font-family:'Barlow Condensed',sans-serif;
+    color:#8892B0;
+    font-weight:700;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    font-size:12px;
+  }
+  #nz-secs{animation:nzpulse 1s ease-in-out infinite;}
+  @keyframes nzpulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+
+  .nz-cta{
+    display:inline-block;
+    background:linear-gradient(135deg,#F2C14E,#e6a817);
+    color:#050814;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900;
+    font-size:15px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:14px 38px;
+    text-decoration:none;
+    transition:opacity .2s, transform .2s;
+    position:relative;z-index:1;
+  }
+  .nz-cta:hover{opacity:.9;transform:translateY(-1px);}
+
+  .nz-ended{
+    font-family:'Barlow Condensed',sans-serif;
+    color:#F2C14E;
+    font-weight:900;
+    text-transform:uppercase;
+    font-size:clamp(24px,4vw,38px);
+    padding:28px 0;
+  }
+
+  @media(max-width:600px){
+    .nz-box{width:42%;}
+    .nz-num{font-size:46px;}
+    .nz-countdown::before{display:none;}
+    .nz-cta{width:90%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= COUNTDOWN SECTION =================
+     Para pegar en home.html: copia el <style> de arriba, la
+     <section class="nz-countdown">…</section> y el <script> de abajo. -->
+<section class="nz-countdown">
+  <div class="nz-eyebrow" id="nz-eyebrow">Mark Your Calendar</div>
+  <h1 class="nz-title" id="nz-titleText">The Countdown Is <span>On</span></h1>
+  <p class="nz-sub" id="nz-subText">Stand together. The moment is almost here — be part of it.</p>
+
+  <div class="nz-grid" id="nz-grid">
+    <div class="nz-box"><span class="nz-num" id="nz-days">--</span><span class="nz-label">Days</span></div>
+    <div class="nz-box"><span class="nz-num" id="nz-hours">--</span><span class="nz-label">Hours</span></div>
+    <div class="nz-box"><span class="nz-num" id="nz-mins">--</span><span class="nz-label">Minutes</span></div>
+    <div class="nz-box"><span class="nz-num" id="nz-secs">--</span><span class="nz-label">Seconds</span></div>
+  </div>
+
+  <a href="https://www.noise385.org/join" target="_parent" class="nz-cta" id="nz-cta">Join the Movement →</a>
+</section>
+
+<script>
+/* =====================================================
+   ↓↓↓  LO ÚNICO QUE TIENES QUE EDITAR  ↓↓↓
+===================================================== */
+
+// 1) Fecha y hora del evento (formato: AÑO-MES-DÍAThora:min:seg)
+//    Ejemplo: 30 de junio 2026 a las 6:00 PM
+var NZ_TARGET_DATE = '2026-06-30T18:00:00';
+
+// 2) Textos (déjalos vacíos '' si no quieres mostrar alguno)
+var NZ_EYEBROW   = 'Mark Your Calendar';
+var NZ_TITLE     = 'The Countdown Is <span>On</span>';   // <span> = palabra en dorado
+var NZ_SUBTITLE  = 'Stand together. The moment is almost here — be part of it.';
+
+// 3) Mensaje cuando llega a cero
+var NZ_ENDED_MSG = "🎉 It's Here — Welcome!";
+
+/* =====================================================
+   ↑↑↑  NO TIENES QUE TOCAR NADA DEBAJO DE AQUÍ  ↑↑↑
+===================================================== */
+
+(function(){
+  document.getElementById('nz-eyebrow').innerHTML   = NZ_EYEBROW;
+  document.getElementById('nz-titleText').innerHTML = NZ_TITLE;
+  document.getElementById('nz-subText').innerHTML   = NZ_SUBTITLE;
+  if(!NZ_EYEBROW)  document.getElementById('nz-eyebrow').style.display='none';
+  if(!NZ_SUBTITLE) document.getElementById('nz-subText').style.display='none';
+
+  var end = new Date(NZ_TARGET_DATE).getTime();
+
+  function tick(){
+    var diff = end - new Date().getTime();
+    if(diff <= 0){
+      document.getElementById('nz-grid').innerHTML = '<div class="nz-ended">'+NZ_ENDED_MSG+'</div>';
+      var cta = document.getElementById('nz-cta');
+      if(cta) cta.style.display='none';
+      clearInterval(timer);
+      return;
+    }
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor((diff%86400000)/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    document.getElementById('nz-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('nz-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('nz-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('nz-secs').textContent  = String(s).padStart(2,'0');
+  }
+
+  tick();
+  var timer = setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>
