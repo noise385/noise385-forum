@@ -391,6 +391,7 @@ body { top: 0 !important; }
     <ul class="nav-links">
       <li><a href="https://www.noise385.org/join" target="_parent" class="nav-cta">Join the Movement</a></li>
       <li><a href="https://www.noise385.org/" target="_parent" class="active">Home</a></li>
+      <li><a href="#winners" onclick="scrollToWinners(event)">🏆 Meet Our Winners</a></li>
       <li><a href="https://www.noise385.org/blog" target="_parent" >Blog</a></li>
       <li><a href="https://www.noise385.org/contact" target="_parent" >Contact</a></li>
       <li class="nav-dropdown">
@@ -411,6 +412,7 @@ body { top: 0 !important; }
   <div class="nav-mobile" id="mobileMenu">
     <a href="https://www.noise385.org/join" target="_parent" class="nav-cta-mobile">Join the Movement</a>
     <a href="https://www.noise385.org/" target="_parent">Home</a>
+    <a href="#winners" onclick="scrollToWinners(event)">🏆 Meet Our Winners</a>
     <a href="https://www.noise385.org/blog" target="_parent">Blog</a>
     <a href="https://www.noise385.org/contact" target="_parent">Contact</a>
     <a href="#">Legal ▾</a>
@@ -444,6 +446,14 @@ function googleTranslateElementInit() {
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('show');
+}
+function scrollToWinners(e){
+  e.preventDefault();
+  var el = document.getElementById('winners');
+  if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if(mm && mm.classList.contains('show')){ mm.classList.remove('show'); if(hb) hb.classList.remove('open'); }
 }
 </script>
 
@@ -532,7 +542,7 @@ function goStat(i) {
 <!-- ══ GIVEAWAY WINNERS ══ -->
 
 <!-- ── Winners Video ── -->
-<section class="section" style="text-align:center; padding-bottom:20px;">
+<section class="section" id="winners" style="text-align:center; padding-bottom:20px; scroll-margin-top:20px;">
   <div class="section-label">The Final Drawing</div>
   <h2 class="section-title">Meet Our <span>June 30th</span> Winners</h2>
   <p class="section-desc" style="margin-left:auto; margin-right:auto;">Our last Gas Card Giveaway wrapped up on June 30th. Watch the drawing and meet the members who took home the prizes.</p>
