@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N.O.I.S.E. 385 — Family BBQ Interest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   N.O.I.S.E. 385 — BBQ Interest Survey
+   CONFIG: pega tu URL de Apps Script en N385_CONFIG.webhookUrl
+   ============================================================ */
+
+:root{
+  --n385-bg-1:#0d0a2e;
+  --n385-bg-2:#1a0a3e;
+  --n385-bg-3:#050814;
+  --n385-gold:#F2C14E;
+  --n385-gold-deep:#e6a817;
+  --n385-cyan:#00E8FF;
+  --n385-btn-a:#16C2FF;
+  --n385-btn-b:#6A4BFF;
+  --n385-text:#F0F4FF;
+  --n385-slate:#8892B0;
+  --n385-line:linear-gradient(90deg,#24C0F9,#546CF4,#8F2CDE,#C716A4,#B30A67);
+  --n385-card:rgba(255,255,255,.045);
+  --n385-edge:rgba(255,255,255,.10);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+
+.n385-survey{
+  margin:0;
+  min-height:100vh;
+  padding:28px 18px 44px;
+  background:linear-gradient(165deg,var(--n385-bg-1) 0%,var(--n385-bg-2) 48%,var(--n385-bg-3) 100%);
+  font-family:'Barlow',system-ui,-apple-system,sans-serif;
+  color:var(--n385-text);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  -webkit-font-smoothing:antialiased;
+}
+
+.n385-shell{width:100%;max-width:620px;}
+
+/* ---------- Progress: the brand accent line, used as a meter ---------- */
+.n385-meter{
+  height:3px;
+  width:100%;
+  background:rgba(255,255,255,.08);
+  border-radius:99px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.n385-meter-fill{
+  height:100%;
+  width:0%;
+  background:var(--n385-line);
+  border-radius:99px;
+  transition:width .45s cubic-bezier(.4,0,.2,1);
+}
+.n385-meter-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--n385-slate);
+  margin-bottom:26px;
+}
+
+/* ---------- Cards ---------- */
+.n385-card{
+  background:var(--n385-card);
+  border:1px solid var(--n385-edge);
+  border-radius:16px;
+  padding:30px 26px;
+  backdrop-filter:blur(8px);
+}
+
+.n385-step{display:none;animation:n385-in .38s cubic-bezier(.4,0,.2,1);}
+.n385-step.is-active{display:block;}
+@keyframes n385-in{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:none;}
+}
+
+/* ---------- Type ---------- */
+.n385-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--n385-cyan);
+  margin:0 0 12px;
+}
+.n385-q{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(30px,6.4vw,42px);
+  font-weight:800;
+  line-height:1.04;
+  letter-spacing:-.005em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+}
+.n385-q em{font-style:normal;color:var(--n385-gold);}
+.n385-help{
+  font-size:15px;
+  line-height:1.55;
+  color:var(--n385-slate);
+  margin:0 0 24px;
+}
+.n385-logo{
+  display:block;
+  height:62px;
+  margin:0 auto 22px;
+}
+
+/* ---------- Choices ---------- */
+.n385-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;}
+.n385-choice{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  width:100%;
+  text-align:left;
+  padding:15px 17px;
+  border-radius:11px;
+  border:1px solid var(--n385-edge);
+  background:rgba(255,255,255,.03);
+  color:var(--n385-text);
+  font-family:'Barlow',sans-serif;
+  font-size:16px;
+  font-weight:500;
+  cursor:pointer;
+  transition:border-color .18s,background .18s,transform .18s;
+}
+.n385-choice:hover{border-color:rgba(0,232,255,.45);background:rgba(0,232,255,.06);}
+.n385-choice:focus-visible{outline:2px solid var(--n385-cyan);outline-offset:2px;}
+.n385-choice.is-picked{
+  border-color:var(--n385-cyan);
+  background:rgba(0,232,255,.11);
+}
+.n385-tick{
+  flex:0 0 20px;height:20px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.28);
+  position:relative;transition:.18s;
+}
+.n385-choice[data-multi="1"] .n385-tick{border-radius:5px;}
+.n385-choice.is-picked .n385-tick{border-color:var(--n385-cyan);background:var(--n385-cyan);}
+.n385-choice.is-picked .n385-tick::after{
+  content:"";position:absolute;left:6px;top:2px;
+  width:5px;height:10px;
+  border:solid var(--n385-bg-3);
+  border-width:0 2.5px 2.5px 0;
+  transform:rotate(45deg);
+}
+
+/* ---------- Fields ---------- */
+.n385-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.n385-field{display:flex;flex-direction:column;gap:6px;}
+.n385-field.n385-wide{grid-column:1 / -1;}
+.n385-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--n385-slate);
+}
+.n385-input{
+  width:100%;
+  padding:13px 15px;
+  border-radius:10px;
+  border:1px solid var(--n385-edge);
+  background:rgba(0,0,0,.28);
+  color:var(--n385-text);
+  font-family:'Barlow',sans-serif;
+  font-size:16px;
+  transition:border-color .18s;
+}
+.n385-input:focus{outline:none;border-color:var(--n385-cyan);}
+.n385-input::placeholder{color:rgba(136,146,176,.65);}
+.n385-input.is-bad{border-color:#ff5c7a;}
+
+/* ---------- Steppers ---------- */
+.n385-count{display:flex;align-items:center;gap:14px;}
+.n385-count button{
+  width:42px;height:42px;flex:0 0 42px;
+  border-radius:10px;
+  border:1px solid var(--n385-edge);
+  background:rgba(255,255,255,.05);
+  color:var(--n385-text);
+  font-size:22px;font-weight:600;line-height:1;
+  cursor:pointer;transition:.18s;
+}
+.n385-count button:hover{border-color:var(--n385-cyan);color:var(--n385-cyan);}
+.n385-count button:focus-visible{outline:2px solid var(--n385-cyan);outline-offset:2px;}
+.n385-count output{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:30px;font-weight:800;
+  min-width:44px;text-align:center;
+}
+
+/* ---------- Nav ---------- */
+.n385-nav{display:flex;gap:12px;align-items:center;}
+.n385-next{
+  flex:1;
+  padding:15px 24px;
+  border:none;border-radius:11px;
+  background:linear-gradient(90deg,var(--n385-btn-a),var(--n385-btn-b));
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:19px;font-weight:800;
+  letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .18s,box-shadow .18s,opacity .18s;
+}
+.n385-next:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(22,194,255,.28);}
+.n385-next:focus-visible{outline:2px solid var(--n385-cyan);outline-offset:3px;}
+.n385-next[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.n385-back{
+  padding:15px 20px;
+  border:1px solid var(--n385-edge);border-radius:11px;
+  background:transparent;color:var(--n385-slate);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:16px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;transition:.18s;
+}
+.n385-back:hover{color:var(--n385-text);border-color:rgba(255,255,255,.28);}
+.n385-back:focus-visible{outline:2px solid var(--n385-cyan);outline-offset:2px;}
+
+.n385-error{
+  color:#ff8fa3;font-size:14px;
+  margin:0 0 14px;min-height:18px;
+}
+
+/* ---------- Done ---------- */
+.n385-done{text-align:center;padding:44px 26px;}
+.n385-done .n385-q{color:var(--n385-gold);}
+.n385-rule{height:3px;width:82px;margin:0 auto 22px;background:var(--n385-line);border-radius:99px;}
+.n385-sig{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--n385-slate);
+  margin-top:26px;
+}
+
+@media (max-width:520px){
+  .n385-fields{grid-template-columns:1fr;}
+  .n385-card{padding:26px 20px;}
+  .n385-nav{flex-direction:column-reverse;}
+  .n385-next,.n385-back{width:100%;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body class="n385-survey">
+
+<div class="n385-shell">
+
+  <div class="n385-meter"><div class="n385-meter-fill" id="n385Fill"></div></div>
+  <div class="n385-meter-label" id="n385Count">Start</div>
+
+  <div class="n385-card">
+
+    <!-- STEP 0 — Intro -->
+    <section class="n385-step is-active" data-step="0">
+      <img class="n385-logo" src="https://res.cloudinary.com/dur66pxpw/image/upload/v1776208136/FullLogo_Transparent_ydhats.png" alt="N.O.I.S.E. 385">
+      <p class="n385-eyebrow">Members &amp; families</p>
+      <h1 class="n385-q">Should we throw a <em>family BBQ?</em></h1>
+      <p class="n385-help">No date, no location yet — that's the point. We want to build this around when members are actually free instead of picking a day and hoping. Tell us if you'd come and what works for you. Takes about a minute.</p>
+      <div class="n385-nav">
+        <button class="n385-next" type="button" data-go="1">Let's do it</button>
+      </div>
+    </section>
+
+    <!-- STEP 1 — Interest -->
+    <section class="n385-step" data-step="1">
+      <p class="n385-eyebrow">Question 1</p>
+      <h2 class="n385-q">Would you come?</h2>
+      <p class="n385-help">Be straight with us — a soft yes helps nobody plan.</p>
+      <div class="n385-choices" data-group="interest" data-multi="0">
+        <button class="n385-choice" type="button" data-value="Definitely"><span class="n385-tick"></span>Definitely, count me in</button>
+        <button class="n385-choice" type="button" data-value="Probably"><span class="n385-tick"></span>Probably</button>
+        <button class="n385-choice" type="button" data-value="Depends on the date"><span class="n385-tick"></span>Depends on the date</button>
+        <button class="n385-choice" type="button" data-value="Can't make it"><span class="n385-tick"></span>Can't make it, but keep me posted</button>
+      </div>
+      <p class="n385-error" data-err></p>
+      <div class="n385-nav">
+        <button class="n385-back" type="button" data-back>Back</button>
+        <button class="n385-next" type="button" data-go="2">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 2 — Days -->
+    <section class="n385-step" data-step="2">
+      <p class="n385-eyebrow">Question 2</p>
+      <h2 class="n385-q">Which days work?</h2>
+      <p class="n385-help">Pick everything that could work. The more you check, the easier it is to land on a date most of us can make.</p>
+      <div class="n385-choices" data-group="days" data-multi="1">
+        <button class="n385-choice" type="button" data-multi="1" data-value="Saturday"><span class="n385-tick"></span>Saturday</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="Sunday"><span class="n385-tick"></span>Sunday</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="Weekday evening"><span class="n385-tick"></span>A weekday evening</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="Flexible"><span class="n385-tick"></span>I'm flexible</button>
+      </div>
+      <p class="n385-error" data-err></p>
+      <div class="n385-nav">
+        <button class="n385-back" type="button" data-back>Back</button>
+        <button class="n385-next" type="button" data-go="3">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 3 — Headcount -->
+    <section class="n385-step" data-step="3">
+      <p class="n385-eyebrow">Question 3</p>
+      <h2 class="n385-q">Who's coming with you?</h2>
+      <p class="n385-help">Significant others and children are welcome. Include yourself in the adult count.</p>
+      <div class="n385-fields">
+        <div class="n385-field n385-wide">
+          <span class="n385-label">Adults</span>
+          <div class="n385-count">
+            <button type="button" data-step-btn="adults" data-dir="-1" aria-label="One less adult">−</button>
+            <output id="n385Adults">1</output>
+            <button type="button" data-step-btn="adults" data-dir="1" aria-label="One more adult">+</button>
+          </div>
+        </div>
+        <div class="n385-field n385-wide">
+          <span class="n385-label">Children over 3</span>
+          <div class="n385-count">
+            <button type="button" data-step-btn="kids" data-dir="-1" aria-label="One less child">−</button>
+            <output id="n385Kids">0</output>
+            <button type="button" data-step-btn="kids" data-dir="1" aria-label="One more child">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="n385-nav">
+        <button class="n385-back" type="button" data-back>Back</button>
+        <button class="n385-next" type="button" data-go="4">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 4 — Dietary -->
+    <section class="n385-step" data-step="4">
+      <p class="n385-eyebrow">Question 4 · Optional</p>
+      <h2 class="n385-q">Anything you don't eat?</h2>
+      <p class="n385-help">We'll confirm this again once the date is set. Skip it if nothing applies.</p>
+      <div class="n385-choices" data-group="diet" data-multi="1">
+        <button class="n385-choice" type="button" data-multi="1" data-value="Vegetarian"><span class="n385-tick"></span>Vegetarian</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="Vegan"><span class="n385-tick"></span>Vegan</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="No pork"><span class="n385-tick"></span>No pork</button>
+        <button class="n385-choice" type="button" data-multi="1" data-value="No beef"><span class="n385-tick"></span>No beef</button>
+      </div>
+      <div class="n385-field n385-wide" style="margin-bottom:24px;">
+        <span class="n385-label">Something else</span>
+        <input class="n385-input" id="n385DietOther" type="text" placeholder="Allergies, other restrictions">
+      </div>
+      <div class="n385-nav">
+        <button class="n385-back" type="button" data-back>Back</button>
+        <button class="n385-next" type="button" data-go="5">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 5 — Contact -->
+    <section class="n385-step" data-step="5">
+      <p class="n385-eyebrow">Last one</p>
+      <h2 class="n385-q">How do we reach you?</h2>
+      <p class="n385-help">We'll only use this to send you the date and location once they're set.</p>
+      <div class="n385-fields">
+        <div class="n385-field">
+          <label class="n385-label" for="n385First">First name</label>
+          <input class="n385-input" id="n385First" type="text" autocomplete="given-name">
+        </div>
+        <div class="n385-field">
+          <label class="n385-label" for="n385Last">Last name</label>
+          <input class="n385-input" id="n385Last" type="text" autocomplete="family-name">
+        </div>
+        <div class="n385-field n385-wide">
+          <label class="n385-label" for="n385Email">Email</label>
+          <input class="n385-input" id="n385Email" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div class="n385-field n385-wide">
+          <label class="n385-label" for="n385Phone">Best phone number</label>
+          <input class="n385-input" id="n385Phone" type="tel" autocomplete="tel" placeholder="(407) 555-0142">
+        </div>
+      </div>
+      <p class="n385-error" data-err></p>
+      <div class="n385-nav">
+        <button class="n385-back" type="button" data-back>Back</button>
+        <button class="n385-next" type="button" id="n385Submit">Send it in</button>
+      </div>
+    </section>
+
+    <!-- STEP 6 — Done -->
+    <section class="n385-step n385-done" data-step="6">
+      <div class="n385-rule"></div>
+      <h2 class="n385-q">You're on the list</h2>
+      <p class="n385-help" id="n385DoneMsg">Your answer is in. We'll send you the date and location as soon as they're locked in.</p>
+      <p class="n385-sig">In solidarity · N.O.I.S.E. 385</p>
+    </section>
+
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const app = initializeApp({
+    apiKey:            "AIzaSyDU7_j-UxS85B72L4clA95QgRSF07M65ag",
+    authDomain:        "noise385-forum.firebaseapp.com",
+    projectId:         "noise385-forum",
+    storageBucket:     "noise385-forum.firebasestorage.app",
+    messagingSenderId: "518824091098",
+    appId:             "1:518824091098:web:875804ed445f04d8ff74e3"
+  });
+
+  const db = getFirestore(app);
+
+  window.n385Save = function(data){
+    return addDoc(collection(db, "bbq_interest"),
+      Object.assign({}, data, { createdAt: serverTimestamp() }));
+  };
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Las respuestas se guardan en Firestore → colección "bbq_interest" (fuente del panel).
+     En paralelo se copian a la hoja vía Apps Script. Si redespliegas, la URL cambia:
+     actualízala aquí. */
+  var N385_CONFIG = {
+    webhookUrl: "https://script.google.com/macros/s/AKfycbwfVxtowvEejR-xo4I22jMB0kaw9TtfbONPhoFw_9OwpylVFXXulHQhddQ0P4XAuDSQ/exec"
+  };
+
+  var TOTAL = 6;
+  var current = 0;
+  var counts = { adults: 1, kids: 0 };
+  var answers = { interest: "", days: [], diet: [] };
+
+  var steps  = Array.prototype.slice.call(document.querySelectorAll(".n385-step"));
+  var fill   = document.getElementById("n385Fill");
+  var label  = document.getElementById("n385Count");
+
+  function show(n){
+    current = n;
+    steps.forEach(function(s){
+      s.classList.toggle("is-active", Number(s.dataset.step) === n);
+    });
+    fill.style.width = Math.round((n / TOTAL) * 100) + "%";
+    label.textContent = n === 0 ? "Start"
+                      : n >= TOTAL ? "Done"
+                      : "Step " + n + " of " + (TOTAL - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    postHeight();
+  }
+
+  function postHeight(){
+    try{
+      var h = document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: "n385:surveyHeight", height: h }, "*");
+    }catch(e){}
+  }
+
+  function errorFor(stepEl, msg){
+    var el = stepEl.querySelector("[data-err]");
+    if(el) el.textContent = msg || "";
+  }
+
+  /* ---- Choice buttons ---- */
+  document.querySelectorAll(".n385-choices").forEach(function(group){
+    var key   = group.dataset.group;
+    var multi = group.dataset.multi === "1";
+
+    group.querySelectorAll(".n385-choice").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var val = btn.dataset.value;
+
+        if(multi){
+          var i = answers[key].indexOf(val);
+          if(i > -1){ answers[key].splice(i, 1); btn.classList.remove("is-picked"); }
+          else { answers[key].push(val); btn.classList.add("is-picked"); }
+        } else {
+          answers[key] = val;
+          group.querySelectorAll(".n385-choice").forEach(function(b){
+            b.classList.toggle("is-picked", b === btn);
+          });
+        }
+        errorFor(group.closest(".n385-step"), "");
+      });
+    });
+  });
+
+  /* ---- Counters ---- */
+  document.querySelectorAll("[data-step-btn]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var key = btn.dataset.stepBtn;
+      var dir = Number(btn.dataset.dir);
+      var min = key === "adults" ? 1 : 0;
+      counts[key] = Math.max(min, Math.min(20, counts[key] + dir));
+      document.getElementById(key === "adults" ? "n385Adults" : "n385Kids").textContent = counts[key];
+    });
+  });
+
+  /* ---- Navigation ---- */
+  document.querySelectorAll("[data-go]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var stepEl = btn.closest(".n385-step");
+      var from   = Number(stepEl.dataset.step);
+
+      if(from === 1){
+        if(!answers.interest){
+          errorFor(stepEl, "Pick one so we know where you stand.");
+          return;
+        }
+        // Not attending → skip logistics, go straight to contact
+        if(answers.interest === "Can't make it"){
+          answers.days = [];
+          answers.diet = [];
+          show(5);
+          return;
+        }
+      }
+
+      if(from === 2 && answers.days.length === 0){
+        errorFor(stepEl, "Pick at least one — 'I'm flexible' counts.");
+        return;
+      }
+
+      show(Number(btn.dataset.go));
+    });
+  });
+
+  document.querySelectorAll("[data-back]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var from = Number(btn.closest(".n385-step").dataset.step);
+      if(from === 5 && answers.interest === "Can't make it"){ show(1); return; }
+      show(Math.max(0, from - 1));
+    });
+  });
+
+  /* ---- Submit ---- */
+  document.getElementById("n385Submit").addEventListener("click", function(){
+    var btn    = this;
+    var stepEl = btn.closest(".n385-step");
+
+    var first = document.getElementById("n385First");
+    var last  = document.getElementById("n385Last");
+    var email = document.getElementById("n385Email");
+    var phone = document.getElementById("n385Phone");
+
+    [first, last, email, phone].forEach(function(f){ f.classList.remove("is-bad"); });
+
+    if(!first.value.trim()){ first.classList.add("is-bad"); errorFor(stepEl, "We need your first name."); return; }
+    if(!last.value.trim()){ last.classList.add("is-bad"); errorFor(stepEl, "We need your last name."); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+      email.classList.add("is-bad"); errorFor(stepEl, "That email doesn't look right."); return;
+    }
+    if(phone.value.replace(/\D/g, "").length < 10){
+      phone.classList.add("is-bad"); errorFor(stepEl, "Enter a 10-digit phone number."); return;
+    }
+    errorFor(stepEl, "");
+
+    var attending = answers.interest !== "Can't make it";
+    var payload = {
+      form:      "bbq-interest",
+      timestamp: new Date().toISOString(),
+      firstName: first.value.trim(),
+      lastName:  last.value.trim(),
+      email:     email.value.trim(),
+      phone:     phone.value.trim(),
+      interest:  answers.interest,
+      days:      answers.days.join(", "),
+      adults:    attending ? counts.adults : 0,
+      children:  attending ? counts.kids : 0,
+      dietary:   answers.diet.join(", "),
+      dietaryOther: document.getElementById("n385DietOther").value.trim()
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+
+    mirrorToSheet(payload);
+
+    saveResponse(payload)
+      .then(function(){ finish(); })
+      .catch(function(err){
+        console.error("[n385] save failed", err);
+        btn.disabled = false;
+        btn.textContent = "Send it in";
+        errorFor(stepEl, "That didn't go through. Check your connection and try again.");
+      });
+
+    function finish(){
+      if(!attending){
+        document.getElementById("n385DoneMsg").textContent =
+          "Sorry you can't make this one. We'll still send you the details in case things change.";
+      }
+      show(6);
+    }
+  });
+
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("load", postHeight);
+
+  /* Copia a Google Sheets. No bloquea ni puede fallar de cara al usuario:
+     Firestore es quien decide si la respuesta se guardó. */
+  function mirrorToSheet(payload){
+    if(!N385_CONFIG.webhookUrl || N385_CONFIG.webhookUrl.indexOf("http") !== 0) return;
+    try{
+      fetch(N385_CONFIG.webhookUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(function(){});
+    }catch(e){}
+  }
+
+  /* Espera a que el módulo de Firebase termine de cargar antes de guardar */
+  function saveResponse(payload){
+    if(window.n385Save) return window.n385Save(payload);
+    return new Promise(function(resolve, reject){
+      var tries = 0;
+      (function wait(){
+        if(window.n385Save){ window.n385Save(payload).then(resolve, reject); return; }
+        if(++tries > 40){ reject(new Error("Firestore no cargó")); return; }
+        setTimeout(wait, 150);
+      })();
+    });
+  }
+
+  show(0);
+})();
+</script>
+</body>
+</html>
